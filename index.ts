@@ -1,11 +1,22 @@
-import Activation from "./rede/ativacoes/Activation";
+import LeakyRelu from "./rede/ativacoes/LeakyRelu";
+import Relu from "./rede/ativacoes/Relu";
+import Sigmoid from "./rede/ativacoes/Sigmoid";
 import FeedForward from "./rede/metodo_feed/FeedForward";
-class Sigmoid implements Activation{
-    run(sumRes: number) : number {
-        return  1 / (1 + Math.pow(Math.E, -sumRes));
-    }
 
+const data = {
+    inputs: [0],
+    goal: 1,
+    epochs: 300,
 }
+const activations = [
+    new Relu(),
+    new Sigmoid(),
+    new LeakyRelu()
+]
 
-new FeedForward([0], 0.1, 20, new Sigmoid());
+activations.forEach(act => {
+    new FeedForward(data.inputs, data.goal, data.epochs, act);
+})
+
+
 
